@@ -73,3 +73,24 @@ p {
     font-size: 1.2em;
     margin: 20px 0;
 }
+
+/* Kleiner Button für "Klicke mich" */
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffaa33;  /* wärmere, dezente Farbe */
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 8px #ffaa33;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+.button-link:hover {
+    background-color: #ffcc66;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ffcc66;
+}
