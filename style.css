@@ -5,7 +5,7 @@ body {
     color: #f0f0f0;
     text-align: center;
     margin: 0;
-    padding: 100px 20px;
+    padding: 100px 20px; /* Abstand oben für luftigere Optik */
 }
 
 /* Überschrift */
@@ -16,38 +16,27 @@ h1 {
     text-shadow: 2px 2px 5px #000;
 }
 
-/* Counter */
-#counter {
-    font-size: 4em;
+/* Normale Absätze */
+p {
+    font-size: 1.2em;
     margin: 20px 0;
+}
+
+/* Normale Links */
+a {
     color: #ffaa33;
-    text-shadow: 2px 2px 5px #000;
-}
-
-/* Clicker Button */
-#clickButton {
-    font-size: 1.5em;
-    padding: 20px 40px;
-    background-color: #ff6600;
-    color: white;
+    text-decoration: none;
     font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 0 15px #ff6600;
-    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-    margin-bottom: 30px;
-    animation: pulse 1.5s infinite;
+    transition: color 0.2s, transform 0.2s;
 }
 
-#clickButton:hover {
-    background-color: #ff9933;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #ff9933;
+a:hover {
+    color: #ffcc66;
+    transform: scale(1.05);
 }
 
-/* Zurück-Link */
-.back {
+/* Kleiner Button für "Klicke mich" */
+.button-link {
     display: inline-block;
     padding: 10px 20px;
     background-color: #ffaa33;
@@ -55,44 +44,52 @@ h1 {
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px #ffaa33;
+    text-align: center;
+    box-shadow: 0 0 8px #ffaa33;
     transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
 }
 
-.back:hover {
+.button-link:hover {
     background-color: #ffcc66;
     transform: scale(1.05);
     box-shadow: 0 0 15px #ffcc66;
 }
 
-/* Discord Box */
-.discord-box {
-    background-color: #222;
-    color: #fff;
-    border: 2px solid #ffaa33;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 40px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 0 15px #ffaa33;
-}
-
-.discord-box a {
-    color: #ffcc66;
-    text-decoration: none;
+/* Pulsierender Haupt-Button "Spiele ein spiel" */
+.button-highlight {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #ff6600;
+    color: white;
     font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px #ff6600;
+    animation: pulse 1.5s infinite;
+    transition: transform 0.2s, background-color 0.2s;
+    margin-top: 30px;
 }
 
-.discord-box a:hover {
-    color: #ffaa33;
+.button-highlight:hover {
+    background-color: #ff9933;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff9933;
 }
 
-/* Pulsierende Animation für den Clicker-Button */
+/* Pulsierende Animation für Hauptbutton */
 @keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 15px #ff6600; }
-    50% { transform: scale(1.1); box-shadow: 0 0 25px #ff9933; }
-    100% { transform: scale(1); box-shadow: 0 0 15px #ff6600; }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff6600;
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px #ff9933;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff6600;
+    }
 }
