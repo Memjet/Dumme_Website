@@ -16,15 +16,26 @@
     <a href="index.html" class="back">Zurück</a>
 
     <script>
-        let count = 0;
-        const counter = document.getElementById("counter");
-        const btn = document.getElementById("clickButton");
+    let count = 0;
+    const counter = document.getElementById("counter");
+    const btn = document.getElementById("clickButton");
 
-        btn.addEventListener("click", () => {
-            count++;
-            counter.textContent = count;
-        });
-    </script>
+    // Lade gespeicherten Fortschritt (falls vorhanden)
+    if (localStorage.getItem("clickerScore")) {
+        count = parseInt(localStorage.getItem("clickerScore"));
+        counter.textContent = count;
+    }
+
+    // Beim Klicken Punkte erhöhen + speichern
+    btn.addEventListener("click", () => {
+        count++;
+        counter.textContent = count;
+
+        // Speichern im Browser
+        localStorage.setItem("clickerScore", count);
+    });
+</script>
+
 
 </body>
 </html>
