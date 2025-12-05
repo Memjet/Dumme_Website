@@ -1,13 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>spiel</title>
+    <title>Clicker Spiel</title>
+    <style>
+        body {
+            background: #fafafa;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #counter {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+        #clickButton {
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background: dodgerblue;
+            color: white;
+            transition: 0.1s;
+        }
+        #clickButton:active {
+            transform: scale(0.95);
+            background: #1c6cd1;
+        }
+        a {
+            display: inline-block;
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
+
+    <div id="counter">0</div>
+    <button id="clickButton">Klick mich!</button>
+
+    <br><br>
     <a href="index.html">Zurück</a>
-    <p>Haha es giebt <b>Noch</b> nicht</p>
+
+    <script>
+        let count = 0;
+        const counter = document.getElementById("counter");
+        const btn = document.getElementById("clickButton");
+
+        btn.addEventListener("click", () => {
+            count++;
+            counter.textContent = count;
+        });
+    </script>
+
 </body>
 </html>
-
