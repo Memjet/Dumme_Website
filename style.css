@@ -1,24 +1,24 @@
-/* Grundlegendes Layout */
+/* Grundlayout mit Abstand nach unten */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;  /* dunkler Hintergrund, nicht zu krass */
-    color: #f0f0f0;             /* helle Schrift */
+    background-color: #1a1a1a;
+    color: #f0f0f0;
     text-align: center;
     margin: 0;
-    padding: 50px;
+    padding: 100px 20px; /* mehr Abstand oben */
 }
 
-/* Überschrift */
+/* Überschrift passend zum Button */
 h1 {
     font-size: 3em;
-    margin-bottom: 30px;
-    color: #ffcc00;
-    text-shadow: 1px 1px 3px #000;
+    margin-bottom: 40px;
+    color: #ff9900;
+    text-shadow: 2px 2px 5px #000;
 }
 
-/* Alle Links normal */
+/* Normale Links */
 a {
-    color: #00ccff;
+    color: #ffaa33;
     text-decoration: none;
     font-size: 1.2em;
     padding: 5px 10px;
@@ -26,7 +26,7 @@ a {
 }
 
 a:hover {
-    color: #66ffff;
+    color: #ffcc66;
     transform: scale(1.05);
 }
 
@@ -43,10 +43,33 @@ a:hover {
     box-shadow: 0 0 10px #ff6600;
     animation: pulse 1.5s infinite;
     transition: transform 0.2s, background-color 0.2s;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .button-highlight:hover {
     background-color: #ff9933;
     transform: scale(1.1);
-    box-shadow: 0 0 20px #ff993
+    box-shadow: 0 0 20px #ff9933;
+}
+
+/* Pulsierende Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff6600;
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px #ff9933;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff6600;
+    }
+}
+
+/* Absätze */
+p {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
