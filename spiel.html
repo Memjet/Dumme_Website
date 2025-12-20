@@ -7,43 +7,9 @@
     <link rel="stylesheet" href="spiel.css">
 </head>
 <body>
-
-    <h1>Clicker Spiel</h1>
-
-    <div id="counter">0</div>
-    <button id="clickButton">Klick mich!</button>
-
-    <a href="index.html" class="back">Zurück</a>
-    
-    <div class="discord-box">
-    <p>✨ Gewinne einen Preis!(Nur noch 1 Tag!)✨</p>
-    <p>Schicke eine Bildschirmaufnahme deines Scores in unseren Discord:</p>
-    <a target="_blank" href="https://discord.gg/BQE6gGxwaQ">➡️ Zum Discord</a>
-</div>
-
-
-    <script>
-    let count = 0;
-    const counter = document.getElementById("counter");
-    const btn = document.getElementById("clickButton");
-
-    // Lade gespeicherten Fortschritt (falls vorhanden)
-    if (localStorage.getItem("clickerScore")) {
-        count = parseInt(localStorage.getItem("clickerScore"));
-        counter.textContent = count;
-    }
-
-    // Beim Klicken Punkte erhöhen + speichern
-    btn.addEventListener("click", () => {
-        count++;
-        counter.textContent = count;
-
-        // Speichern im Browser
-        localStorage.setItem("clickerScore", count);
-    });
-</script>
-
-
+ <a href="index.html">Zurück</a>
+ <p>Das Spiel ist vorbei!</p>
+ <p>Discord: <a href="https://discord.gg/BQE6gGxwaQ"></a>Klicke mich!</p>
 </body>
 </html>
 
