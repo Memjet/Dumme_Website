@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 IDLE MINER - Der große Klicker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: #0a0a0f;
+            border: 3px solid #ffd700;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .gold-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            margin: 10px 0;
+        }
+
+        .info-text {
+            color: #aaa;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        .click-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .click-btn {
+            width: 150px;
+            height: 150px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+            background: linear-gradient(135deg, #1a1a2e 0%, #282832 100%);
+            border: 3px solid #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .click-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .click-btn:active {
+            transform: scale(0.95);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #aaa;
+            background: #1a1a2e;
+            border: 2px solid #444;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #ffd700;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .tab-btn:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .content {
+            background: #1a1a2e;
+            border: 2px solid #282832;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .upgrade-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #282832;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .upgrade-item.unaffordable {
+            opacity: 0.6;
+            border-left-color: #666;
+        }
+
+        .upgrade-info {
+            flex: 1;
+        }
+
+        .upgrade-name {
+            font-weight: bold;
+            color: #ffd700;
+            font-size: 1.1em;
+        }
+
+        .upgrade-cost {
+            color: #aaa;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .upgrade-count {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .buy-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #000;
+            background: #ffd700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+
+        .buy-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #282832;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #666;
+        }
+
+        .achievement-item.unlocked {
+            border-left-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .achievement-icon {
+            font-size: 2em;
+        }
+
+        .achievement-text {
+            flex: 1;
+        }
+
+        .achievement-name {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .achievement-item.locked .achievement-name {
+            color: #666;
+        }
+
+        .achievement-status {
+            color: #aaa;
+            font-size: 0.85em;
+        }
+
+        .achievement-item.unlocked .achievement-status {
+            color: #ffd700;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .gold-display {
+                font-size: 1.5em;
+            }
+
+            .click-btn {
+                width: 120px;
+                height: 120px;
+                font-size: 1.5em;
+            }
+
+            .upgrade-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .buy-btn {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⛏️ IDLE MINER</h1>
+            <div class="gold-display">💰 <span id="goldAmount">0</span> Gold</div>
+            <div class="info-text">Klick-Power: <span id="clickValue">1.0</span></div>
+            <div class="info-text">Passives Einkommen: <span id="incomeValue">0.0</span>/Sekunde</div>
+        </div>
+
+        <div class="click-section">
+            <button class="click-btn" id="clickBtn">⛏️<br>KLICK!</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="game">🎮 SPIEL</button>
+            <button class="tab-btn" data-tab="upgrades">📦 UPGRADES</button>
+            <button class="tab-btn" data-tab="achievements">🏆 ERFOLGE</button>
+        </div>
+
+        <div class="content">
+            <div id="game" class="tab-content">
+                <h2>📊 Spielinfo</h2>
+                <p style="margin-top: 20px; color: #aaa;">
+                    Gesamt Klicks: <span id="totalClicks" style="color: #ffd700;">0</span><br><br>
+                    💡 Tipps:<br>
+                    • Klick auf den Knopf um Gold zu sammeln<br>
+                    • Kaufe Spitzhacken um mehr Gold pro Klick zu bekommen<br>
+                    • Kaufe Auto-Miner um passives Einkommen zu haben<br>
+                    • Erreiche Achievements
+                </p>
+            </div>
+
+            <div id="upgrades" class="tab-content hidden">
+                <h2>📦 Upgrades</h2>
+                <div id="upgradesList" style="margin-top: 20px;"></div>
+            </div>
+
+            <div id="achievements" class="tab-content hidden">
+                <h2>🏆 Erfolge</h2>
+                <div id="achievementsList" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class IdleMiner {
+            constructor() {
+                this.gold = 0;
+                this.totalClicks = 0;
+                this.autoIncome = 0;
+
+                this.upgrades = {
+                    pickaxe_copper: { cost: 10, owned: 0, boost: 1.5, name: "🥉 Kupfer Spitzhacke", type: "pickaxe" },
+                    pickaxe_stone: { cost: 100, owned: 0, boost: 3.0, name: "🪨 Stein Spitzhacke", type: "pickaxe" },
+                    pickaxe_iron: { cost: 500, owned: 0, boost: 5.0, name: "⚒️ Eisen Spitzhacke", type: "pickaxe" },
+                    miner_1: { cost: 50, owned: 0, boost: 1.0, name: "👷 Auto Miner Stufe 1", type: "miner" },
+                    miner_2: { cost: 200, owned: 0, boost: 5.0, name: "👷👷 Auto Miner Stufe 2", type: "miner" },
+                    miner_3: { cost: 1000, owned: 0, boost: 25.0, name: "👷👷👷 Auto Miner Stufe 3", type: "miner" },
+                };
+
+                this.achievements = {
+                    first_click: { unlocked: false, name: "Erster Klick", icon: "👆" },
+                    hundred_clicks: { unlocked: false, name: "100 Klicks", icon: "💯" },
+                    thousand_gold: { unlocked: false, name: "1.000 Gold", icon: "💰" },
+                    rich: { unlocked: false, name: "1.000.000 Gold", icon: "🤑" },
+                    collector: { unlocked: false, name: "Sammler", icon: "📦" },
+                    miner_master: { unlocked: false, name: "Meister-Bergmann", icon: "⛏️" },
+                };
+
+                this.loadGame();
+                this.setupEventListeners();
+                this.calculateIncome();
+                this.updateDisplay();
+                this.startAutoTick();
+                this.renderUpgrades();
+                this.renderAchievements();
+            }
+
+            loadGame() {
+                const saved = localStorage.getItem("idleMinerSave");
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    this.gold = data.gold || 0;
+                    this.totalClicks = data.totalClicks || 0;
+                    this.upgrades = data.upgrades || this.upgrades;
+                    this.achievements = data.achievements || this.achievements;
+                }
+            }
+
+            saveGame() {
+                const data = {
+                    gold: this.gold,
+                    totalClicks: this.totalClicks,
+                    upgrades: this.upgrades,
+                    achievements: this.achievements,
+                };
+                localStorage.setItem("idleMinerSave", JSON.stringify(data));
+            }
+
+            setupEventListeners() {
+                document.getElementById("clickBtn").addEventListener("click", () => this.click());
+
+                document.querySelectorAll(".tab-btn").forEach(btn => {
+                    btn.addEventListener("click", (e) => this.switchTab(e.target.dataset.tab));
+                });
+            }
+
+            getClickValue() {
+                let value = 1.0;
+                value *= Math.pow(this.upgrades.pickaxe_copper.boost, this.upgrades.pickaxe_copper.owned);
+                value *= Math.pow(this.upgrades.pickaxe_stone.boost, this.upgrades.pickaxe_stone.owned);
+                value *= Math.pow(this.upgrades.pickaxe_iron.boost, this.upgrades.pickaxe_iron.owned);
+                return value;
+            }
+
+            calculateIncome() {
+                this.autoIncome = 0;
+                this.autoIncome += this.upgrades.miner_1.boost * this.upgrades.miner_1.owned;
+                this.autoIncome += this.upgrades.miner_2.boost * this.upgrades.miner_2.owned;
+                this.autoIncome += this.upgrades.miner_3.boost * this.upgrades.miner_3.owned;
+            }
+
+            click() {
+                this.gold += this.getClickValue();
+                this.totalClicks += 1;
+                this.checkAchievements();
+                this.updateDisplay();
+                this.saveGame();
+            }
+
+            buyUpgrade(name) {
+                if (!this.upgrades[name]) return;
+                const upgrade = this.upgrades[name];
+
+                if (this.gold >= upgrade.cost) {
+                    this.gold -= upgrade.cost;
+                    upgrade.owned += 1;
+                    upgrade.cost = Math.round(upgrade.cost * 1.15);
+                    this.calculateIncome();
+                    this.checkAchievements();
+                    this.updateDisplay();
+                    this.renderUpgrades();
+                    this.saveGame();
+                }
+            }
+
+            checkAchievements() {
+                if (this.totalClicks >= 1) this.achievements.first_click.unlocked = true;
+                if (this.totalClicks >= 100) this.achievements.hundred_clicks.unlocked = true;
+                if (this.gold >= 1000) this.achievements.thousand_gold.unlocked = true;
+                if (this.gold >= 1000000) this.achievements.rich.unlocked = true;
+
+                const totalUpgrades = Object.values(this.upgrades).reduce((sum, u) => sum + u.owned, 0);
+                if (totalUpgrades >= 10) this.achievements.collector.unlocked = true;
+
+                if (this.upgrades.miner_1.owned > 0 && this.upgrades.miner_2.owned > 0 && this.upgrades.miner_3.owned > 0) {
+                    this.achievements.miner_master.unlocked = true;
+                }
+
+                this.renderAchievements();
+            }
+
+            updateDisplay() {
+                document.getElementById("goldAmount").textContent = Math.round(this.gold).toLocaleString("de-DE");
+                document.getElementById("clickValue").textContent = this.getClickValue().toFixed(1);
+                document.getElementById("incomeValue").textContent = this.autoIncome.toFixed(1);
+                document.getElementById("totalClicks").textContent = this.totalClicks.toLocaleString("de-DE");
+            }
+
+            renderUpgrades() {
+                const list = document.getElementById("upgradesList");
+                list.innerHTML = "";
+
+                Object.entries(this.upgrades).forEach(([key, upgrade]) => {
+                    const canAfford = this.gold >= upgrade.cost;
+                    const item = document.createElement("div");
+                    item.className = "upgrade-item" + (canAfford ? "" : " unaffordable");
+                    item.innerHTML = `
+                        <div class="upgrade-info">
+                            <div class="upgrade-name">${upgrade.name}</div>
+                            <div class="upgrade-cost">Kosten: ${upgrade.cost} Gold</div>
+                            <div class="upgrade-count">Besitzt: ${upgrade.owned}</div>
+                        </div>
+                        <button class="buy-btn" ${canAfford ? "" : "disabled"} onclick="game.buyUpgrade('${key}')">KAUFEN</button>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+
+            renderAchievements() {
+                const list = document.getElementById("achievementsList");
+                list.innerHTML = "";
+
+                Object.entries(this.achievements).forEach(([key, ach]) => {
+                    const item = document.createElement("div");
+                    item.className = "achievement-item" + (ach.unlocked ? " unlocked" : " locked");
+                    item.innerHTML = `
+                        <div class="achievement-icon">${ach.icon}</div>
+                        <div class="achievement-text">
+                            <div class="achievement-name">${ach.name}</div>
+                            <div class="achievement-status">${ach.unlocked ? "✓ Freigeschaltet" : "🔒 Gesperrt"}</div>
+                        </div>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+
+            switchTab(tabName) {
+                document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+                document.querySelector(`#${tabName}`).classList.remove("hidden");
+
+                document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add("active");
+            }
+
+            startAutoTick() {
+                setInterval(() => {
+                    this.gold += this.autoIncome / 10; // Tick 10x pro Sekunde
+                    this.updateDisplay();
+                    this.saveGame();
+                }, 100);
+            }
+        }
+
+        // Start the game
+        let game = new IdleMiner();
+    </script>
+</body>
+</html>
